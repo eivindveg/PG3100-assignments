@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <database>
+        <user>root</user>
+        <password></password>
+        <host>localhost</host>
+        <schema>innlevering2</schema>
+        <port>3306</port>
+    </database>
+</configuration>

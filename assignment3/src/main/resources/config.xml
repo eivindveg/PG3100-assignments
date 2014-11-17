@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <database>
+        <type>mysql</type>
+        <user>root</user>
+        <password></password>
+        <host>localhost</host>
+        <schema>innlevering3</schema>
+        <port>3306</port>
+    </database>
+</configuration>
