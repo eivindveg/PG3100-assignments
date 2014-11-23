@@ -2,7 +2,7 @@ package no.student.westerdals.vegeiv13.innlevering2.models;
 
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static junit.framework.Assert.assertEquals;
 
 public class DataTypeTest {
 
@@ -14,8 +14,8 @@ public class DataTypeTest {
     @Test
     public void testSQLNames() {
         DataType varchar = DataType.getTypeForString("VARCHAR");
-        assertThat(varchar == DataType.VARCHAR);
+        assertEquals(varchar, DataType.VARCHAR);
         DataType dateTime = DataType.getTypeForString("DATETIME");
-        assertThat(varchar == DataType.DATETIME);
+        assertEquals(dateTime, DataType.DATETIME);
     }
 }

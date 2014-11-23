@@ -25,7 +25,7 @@ public class ConfigurationHandler {
         configuration = tempConf;
     }
 
-    public static ConfigurationHandler getInstance() throws ConfigurationException {
+    public static ConfigurationHandler getInstance() {
         if (instance == null) {
             synchronized (threadLock) {
                 if (instance == null) {

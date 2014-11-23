@@ -3,7 +3,7 @@ package no.student.westerdals.vegeiv13.innlevering2.models;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static junit.framework.Assert.assertEquals;
 
 public class RowTest {
 
@@ -20,6 +20,6 @@ public class RowTest {
     @Test
     public void testGetValue() throws Exception {
         Object o = row.get(column);
-        assertThat(o.toString().equals(String.valueOf(8L)));
+        assertEquals(o.toString(), String.valueOf(8L));
     }
 }

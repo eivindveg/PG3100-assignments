@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/music", name = "MusicServlet")
+@WebServlet(urlPatterns = "/", name = "MusicServlet")
 public class MusicServlet extends HttpServlet {
 
     private AlbumService albumService;

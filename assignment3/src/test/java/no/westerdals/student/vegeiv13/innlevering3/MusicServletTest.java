@@ -34,10 +34,10 @@ public class MusicServletTest {
     public void testDoGet() throws ServletException, IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-        when(request.getRequestDispatcher("index.jsp")).thenReturn(mock(RequestDispatcher.class));
+        when(request.getRequestDispatcher("genres.jsp")).thenReturn(mock(RequestDispatcher.class));
 
         servlet.doGet(request, response);
-        verify(request, atLeastOnce()).getRequestDispatcher("index.jsp");
+        verify(request, atLeastOnce()).getRequestDispatcher("genres.jsp");
     }
 
     @Test

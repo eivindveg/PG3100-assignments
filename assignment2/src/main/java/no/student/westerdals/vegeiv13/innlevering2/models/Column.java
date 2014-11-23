@@ -4,7 +4,7 @@ import com.sun.istack.internal.NotNull;
 
 public class Column implements Comparable<Column> {
 
-    private String name;
+    private final String name;
     private Integer index;
     private boolean primaryKey;
 
@@ -12,8 +12,8 @@ public class Column implements Comparable<Column> {
         return dataType;
     }
 
-    private DataType dataType;
-    private Integer width;
+    private final DataType dataType;
+    private final Integer width;
 
     @Override
     public String toString() {
@@ -23,10 +23,6 @@ public class Column implements Comparable<Column> {
                 ", dataType=" + dataType +
                 ", width=" + width +
                 '}';
-    }
-
-    private Column() {
-
     }
 
     public Column(final DataType dataType, final int index, final int width, final String name) {

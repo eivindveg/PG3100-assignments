@@ -31,7 +31,7 @@ public class ParserTest {
 
     @Test
     public void testConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor<?> constructor = Parser.class.getConstructor((Class<?>[]) null);
+        Constructor<?> constructor = Parser.class.getDeclaredConstructor();
         int modifiers = constructor.getModifiers();
 
         // Assert that the constructor is private, so we can catch this and rewrite this test if the constructor

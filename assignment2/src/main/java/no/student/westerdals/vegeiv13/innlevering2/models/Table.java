@@ -31,26 +31,26 @@ public class Table {
     }
 
     private void addIdColumn() {
-        Column idColumn = new Column(DataType.BIGINT, 0, 11, "id");
+        final Column idColumn = new Column(DataType.BIGINT, 0, 11, "id");
         idColumn.setPrimaryKey(true);
         columns.add(0, idColumn);
     }
 
     public static Table mapFromResultSet(final ResultSet resultSet) throws SQLException {
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        List<Column> columns = new ArrayList<>();
+        final ResultSetMetaData metaData = resultSet.getMetaData();
+        final List<Column> columns = new ArrayList<>();
         int columnCount = metaData.getColumnCount();
         for (int i = 1; i <= columnCount; i++) {
-            String columnName = metaData.getColumnName(i);
-            String columnTypeName = metaData.getColumnTypeName(i);
+            final String columnName = metaData.getColumnName(i);
+            final String columnTypeName = metaData.getColumnTypeName(i);
             int precision = metaData.getPrecision(i);
-            Column column = new Column(DataType.getTypeForString(columnTypeName), i, precision, columnName);
+            final Column column = new Column(DataType.getTypeForString(columnTypeName), i, precision, columnName);
             columns.add(column);
             column.setPrimaryKey(metaData.isAutoIncrement(i));
         }
-        Table table = new Table(metaData.getTableName(1), columns);
+        final Table table = new Table(metaData.getTableName(1), columns);
         while (resultSet.next()) {
-            Row row = new Row();
+            final Row row = new Row();
             for (Column column : columns) {
                 row.put(column, resultSet.getString(columns.indexOf(column) + 1));
             }
@@ -125,7 +125,7 @@ public class Table {
         return output;
     }
 
-    public void addColumn(Column column) {
+    public void addColumn(final Column column) {
         columns.add(column);
     }
 

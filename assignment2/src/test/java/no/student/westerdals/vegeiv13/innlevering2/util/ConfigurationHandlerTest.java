@@ -5,7 +5,9 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class ConfigurationHandlerTest {
 
     private ConfigurationHandler configurationHandler;
@@ -18,13 +20,13 @@ public class ConfigurationHandlerTest {
     @Test
     public void testSingleton() throws ConfigurationException {
         ConfigurationHandler configurationHandler2 = ConfigurationHandler.getInstance();
-        assertThat(configurationHandler.equals(configurationHandler2));
+        assertEquals(configurationHandler, configurationHandler2);
     }
 
     @Test
     public void testConfigLoaded() {
         Configuration configuration = configurationHandler.getConfiguration();
-        assertThat(configuration.containsKey("database"));
+        assertTrue(configuration.containsKey("database"));
     }
 
 }

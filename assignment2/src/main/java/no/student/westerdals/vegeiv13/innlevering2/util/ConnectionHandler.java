@@ -2,8 +2,6 @@ package no.student.westerdals.vegeiv13.innlevering2.util;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.XMLConfiguration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,12 +16,7 @@ public final class ConnectionHandler implements AutoCloseable {
 
     public ConnectionHandler() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
-        Configuration configuration;
-        try {
-            configuration = ConfigurationHandler.getInstance().getConfiguration();
-        } catch (ConfigurationException e) {
-            configuration = new XMLConfiguration();
-        }
+        Configuration configuration = ConfigurationHandler.getInstance().getConfiguration();
 
         dataSource.setServerName(configuration.getString("database.host", "localhost"));
         dataSource.setDatabaseName(configuration.getString("database.schema", ""));

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static junit.framework.TestCase.assertEquals;
 
 public class TableTest {
 
@@ -15,20 +15,20 @@ public class TableTest {
     public void setUp() throws Exception {
         table = new Table("TestTable", new ArrayList<>());
         table.setName("TestTable");
-        assertThat(table.getName().equals("TestTable"));
+        assertEquals(table.getName(), "TestTable");
         Column column = new Column(DataType.VARCHAR, 1, 11, "test");
         table.addColumn(column);
-        assertThat(table.getColumns().size() == 2);
+        assertEquals(table.getColumns().size(), 2);
         Row row = new Row();
         row.put(column, "TestValue");
         table.addRow(row);
-        assertThat(table.getKnownRows().size() == 1);
+        assertEquals(table.getKnownRows().size(), 1);
     }
 
     @Test
     public void testReplaceKnownRows() throws Exception {
         table.setKnownRows(new ArrayList<>());
-        assertThat(table.getKnownRows().size() == 0);
+        assertEquals(table.getKnownRows().size(), 0);
     }
     @Test
     public void testDescribeTable() throws Exception {
@@ -36,7 +36,7 @@ public class TableTest {
                 "id                            test                          \n" +
                 "TestValue  ";
         String actual = table.describe();
-        assertThat(actual.equals(expected));
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TableTest {
         String expected = "Table{name='TestTable', knownRows=[{Column{name='test', index=1, dataType=VARCHAR, width=11}=TestValue}], columns=[Column{name='id', index=0, dataType=BIGINT, width=11}, Column{name='test', index=1, dataType=VARCHAR, width=11}]}";
         String actual = table.toString();
 
-        assertThat(expected.equals(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -55,6 +55,6 @@ public class TableTest {
                 ")ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
         String actual = table.toCreateTableStatement();
 
-        assertThat(expected.equals(actual));
+        assertEquals(expected, actual);
     }
 }

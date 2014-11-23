@@ -10,10 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,26 +19,33 @@ import java.util.stream.Collectors;
 public class DBHandler {
 
     public static final String SEPARATOR = "/";
-    private Connection connection;
+    private final Connection connection;
 
-    public DBHandler(Connection connection) throws SQLException {
+    public DBHandler(final Connection connection) throws SQLException {
         this.connection = connection;
         connection.setAutoCommit(false);
     }
 
     public void copyFile(String fileName, String tableName) throws SQLException, IOException {
-        File file = new File(fileName);
+        final File file = new File(fileName);
         String[] lines = readFile(file);
-        List<Column> columns = readColumns(lines);
+        final List<Column> columns = readColumns(lines);
         lines = (String[]) ArrayUtils.subarray(lines, 3, lines.length);
         List<Row> rows = readValues(columns, lines);
-        Table table = new Table(tableName, columns);
+        final Table table = new Table(tableName, columns);
         try (Statement statement = connection.createStatement()) {
-            statement.execute(table.toCreateTableStatement());
-            for (Row row : rows) {
-                statement.execute(row.toInsertStatement(table.getName()));
+            if(statement.execute(table.toCreateTableStatement())) {
+                for (Row row : rows) {
+                    Object[] values = new Object[row.size()];
+                    PreparedStatement preparedStatement = connection.prepareStatement(row.toInsertStatement(tableName, values));
+                    for(int i = 0; i < values.length; i++) {
+                        preparedStatement.setObject(i+1, values[i]);
+                    }
+                    preparedStatement.execute();
+                }
+
+                connection.commit();
             }
-            connection.commit();
 
         } catch (SQLException e) {
             connection.rollback();
@@ -64,11 +68,11 @@ public class DBHandler {
     }
 
     private List<Column> readColumns(String[] lines) {
-        List<Column> columns = new ArrayList<>();
+        final List<Column> columns = new ArrayList<>();
 
-        String[] columnNames = lines[0].split(SEPARATOR);
-        List<DataType> dataTypes = Arrays.asList(lines[1].split(SEPARATOR)).stream().map(DataType::getTypeForString).collect(Collectors.toList());
-        List<Integer> columnWidths = new ArrayList<>();
+        final String[] columnNames = lines[0].split(SEPARATOR);
+        final List<DataType> dataTypes = Arrays.asList(lines[1].split(SEPARATOR)).stream().map(DataType::getTypeForString).collect(Collectors.toList());
+        final List<Integer> columnWidths = new ArrayList<>();
         Arrays.asList(lines[2].split(SEPARATOR)).forEach(width -> columnWidths.add(Integer.parseInt(width)));
 
         for (int i = 0; i < columnNames.length; i++) {
