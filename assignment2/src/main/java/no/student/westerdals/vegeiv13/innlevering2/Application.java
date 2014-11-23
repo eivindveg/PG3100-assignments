@@ -5,6 +5,7 @@ import no.student.westerdals.vegeiv13.innlevering2.util.ConnectionHandler;
 import no.student.westerdals.vegeiv13.innlevering2.util.DBHandler;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,7 +18,9 @@ public class Application {
                 Table table = dbHandler.fetchTable("vegeiv13");
                 System.out.println(table.describe());
             } catch (IOException e) {
-                System.out.println("Could not read file");
+                System.out.println(e.getMessage());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             System.out.println("Could not close connection");

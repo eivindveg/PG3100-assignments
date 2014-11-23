@@ -14,10 +14,12 @@ public class Row extends TreeMap<Column, Object> {
         for(Column key : keySet()) {
             dataValues[i] = get(key);
             valuesBuilder.append("?");
+            namesBuilder.append(key.getName());
             if(!key.equals(lastColumn)) {
                 namesBuilder.append(", ");
                 valuesBuilder.append(", ");
             }
+            i++;
         }
 
         baseStatement = baseStatement.replace("!", namesBuilder.toString());

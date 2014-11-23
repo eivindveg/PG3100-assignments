@@ -10,6 +10,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,30 +29,46 @@ public class DBHandler {
         connection.setAutoCommit(false);
     }
 
-    public void copyFile(String fileName, String tableName) throws SQLException, IOException {
-        final File file = new File(fileName);
+    public void copyFile(String fileName, String tableName) throws SQLException, IOException, URISyntaxException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        if(classLoader == null) {
+            throw new RuntimeException("No classloader found, please check your JRE settings");
+        }
+        URL resource = classLoader.getResource(fileName);
+        if(resource == null) {
+            throw new IOException("Cannot read file " + fileName);
+        }
+        URI fileUri = resource.toURI();
+        final File file = new File(fileUri);
         String[] lines = readFile(file);
         final List<Column> columns = readColumns(lines);
         lines = (String[]) ArrayUtils.subarray(lines, 3, lines.length);
         List<Row> rows = readValues(columns, lines);
         final Table table = new Table(tableName, columns);
+
         try (Statement statement = connection.createStatement()) {
             if(statement.execute(table.toCreateTableStatement())) {
-                for (Row row : rows) {
-                    Object[] values = new Object[row.size()];
-                    PreparedStatement preparedStatement = connection.prepareStatement(row.toInsertStatement(tableName, values));
-                    for(int i = 0; i < values.length; i++) {
-                        preparedStatement.setObject(i+1, values[i]);
-                    }
-                    preparedStatement.execute();
-                }
 
+                insertRows(tableName, rows);
                 connection.commit();
             }
 
         } catch (SQLException e) {
             connection.rollback();
             throw e;
+        }
+    }
+
+    private void insertRows(final String tableName, final List<Row> rows) throws SQLException {
+        for (Row row : rows) {
+            Object[] values = new Object[row.size()];
+            PreparedStatement preparedStatement = connection.prepareStatement(row.toInsertStatement(tableName, values));
+            System.out.println(row.toInsertStatement(tableName, values));
+
+            for(int i = 0; i < values.length; i++) {
+                preparedStatement.setObject(i + 1, values[i]);
+            }
+            preparedStatement.execute();
         }
     }
 

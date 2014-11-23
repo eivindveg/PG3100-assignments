@@ -34,7 +34,7 @@ public class TableTest {
     public void testDescribeTable() throws Exception {
         String expected = "Describing table 'TestTable':\n" +
                 "id                            test                          \n" +
-                "TestValue  ";
+                "TestValue                     \n";
         String actual = table.describe();
         assertEquals(actual, expected);
     }
