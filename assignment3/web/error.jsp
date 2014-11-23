@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="<c:url value="./css/foundation.min.css" />" />
-    <link type="text/css" rel="stylesheet" href="<c:url value="./css/normalize.css" />" />
+    <link type="text/css" rel="stylesheet" href="<c:url value="./css/foundation.min.css" />"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="./css/normalize.css" />"/>
 </head>
 <body>
 <div>

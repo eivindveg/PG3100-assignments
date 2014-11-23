@@ -31,11 +31,11 @@ public class DBHandler {
 
     public void copyFile(String fileName, String tableName) throws SQLException, IOException, URISyntaxException {
         ClassLoader classLoader = getClass().getClassLoader();
-        if(classLoader == null) {
+        if (classLoader == null) {
             throw new RuntimeException("No classloader found, please check your JRE settings");
         }
         URL resource = classLoader.getResource(fileName);
-        if(resource == null) {
+        if (resource == null) {
             throw new IOException("Cannot read file " + fileName);
         }
         URI fileUri = resource.toURI();
@@ -47,7 +47,7 @@ public class DBHandler {
         final Table table = new Table(tableName, columns);
 
         try (Statement statement = connection.createStatement()) {
-            if(statement.execute(table.toCreateTableStatement())) {
+            if (statement.execute(table.toCreateTableStatement())) {
 
                 insertRows(tableName, rows);
                 connection.commit();
@@ -65,7 +65,7 @@ public class DBHandler {
             PreparedStatement preparedStatement = connection.prepareStatement(row.toInsertStatement(tableName, values));
             System.out.println(row.toInsertStatement(tableName, values));
 
-            for(int i = 0; i < values.length; i++) {
+            for (int i = 0; i < values.length; i++) {
                 preparedStatement.setObject(i + 1, values[i]);
             }
             preparedStatement.execute();

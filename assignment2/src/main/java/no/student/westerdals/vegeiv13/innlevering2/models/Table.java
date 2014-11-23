@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Table {
 
+    private final List<Column> columns;
     private String name;
     private List<Row> knownRows = new ArrayList<>();
-    private final List<Column> columns;
 
     public Table(final String name, final List<Column> columns) {
         this.name = name;
@@ -28,12 +28,6 @@ public class Table {
             }
             addIdColumn();
         }
-    }
-
-    private void addIdColumn() {
-        final Column idColumn = new Column(DataType.BIGINT, 0, 11, "id");
-        idColumn.setPrimaryKey(true);
-        columns.add(0, idColumn);
     }
 
     public static Table mapFromResultSet(final ResultSet resultSet) throws SQLException {
@@ -57,6 +51,12 @@ public class Table {
             table.addKnownRow(row);
         }
         return table;
+    }
+
+    private void addIdColumn() {
+        final Column idColumn = new Column(DataType.BIGINT, 0, 11, "id");
+        idColumn.setPrimaryKey(true);
+        columns.add(0, idColumn);
     }
 
     public List<Row> getKnownRows() {
@@ -112,11 +112,11 @@ public class Table {
 
     public String describe() {
         String output = "Describing table '" + this.name + "':\n";
-        for(Column column : columns) {
+        for (Column column : columns) {
             output += String.format("%-30s", column.getName());
         }
         output += "\n";
-        for(Row row : knownRows) {
+        for (Row row : knownRows) {
             for (Column column : row.keySet()) {
                 output += String.format("%-30s", row.get(column));
             }

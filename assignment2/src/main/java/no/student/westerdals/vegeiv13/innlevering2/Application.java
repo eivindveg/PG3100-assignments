@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 public class Application {
     public static void main(String[] args) {
-        try(ConnectionHandler connectionHandler = new ConnectionHandler()) {
-            try(Connection connection = connectionHandler.getConnection()) {
+        try (ConnectionHandler connectionHandler = new ConnectionHandler()) {
+            try (Connection connection = connectionHandler.getConnection()) {
                 DBHandler dbHandler = new DBHandler(connection);
                 dbHandler.copyFile("tekstfil.txt", "vegeiv13");
                 Table table = dbHandler.fetchTable("vegeiv13");

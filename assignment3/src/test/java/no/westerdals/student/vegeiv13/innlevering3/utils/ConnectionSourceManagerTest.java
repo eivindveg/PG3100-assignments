@@ -29,7 +29,7 @@ public class ConnectionSourceManagerTest {
 
         // Instantiate, test fails if instantiation fails(Like if an actual constructor
         // that does take parameters is implemented)
-        constructor.newInstance((Class<?>[]) null);
+        constructor.newInstance();
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ConnectionSourceManagerTest {
         try {
             jdbcConnectionSource.getReadWriteConnection();
             assertTrue(false);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             assertTrue(true);
         }
 

@@ -10,10 +10,6 @@ public final class ConnectionHandler implements AutoCloseable {
 
     private Connection connection;
 
-    public Connection getConnection() throws SQLException {
-        return connection;
-    }
-
     public ConnectionHandler() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         Configuration configuration = ConfigurationHandler.getInstance().getConfiguration();
@@ -27,6 +23,10 @@ public final class ConnectionHandler implements AutoCloseable {
         connection = dataSource.getConnection();
     }
 
+    public Connection getConnection() throws SQLException {
+        return connection;
+    }
+
     /**
      * Closing the ConnectionHandler should only happen during the end of the application's lifetime.
      * Otherwise, all connections should be closed individually by the resource that requested them. However, any
@@ -34,7 +34,7 @@ public final class ConnectionHandler implements AutoCloseable {
      */
     @Override
     public void close() throws SQLException {
-        if(connection != null) {
+        if (connection != null) {
             connection.close();
         }
     }

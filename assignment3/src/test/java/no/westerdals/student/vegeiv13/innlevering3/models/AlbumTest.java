@@ -38,18 +38,18 @@ public class AlbumTest {
     public void testHasIdentifier() {
         Field[] declaredFields = Album.class.getDeclaredFields();
         boolean hasId = false;
-        for(Field f : declaredFields) {
+        for (Field f : declaredFields) {
             Annotation[] annotations = f.getAnnotations();
-            for(Annotation a : annotations) {
-                if(a instanceof DatabaseField) {
-                    DatabaseField dbFieldAnnotation = (DatabaseField)a;
-                    if(dbFieldAnnotation.id() | dbFieldAnnotation.generatedId()) {
+            for (Annotation a : annotations) {
+                if (a instanceof DatabaseField) {
+                    DatabaseField dbFieldAnnotation = (DatabaseField) a;
+                    if (dbFieldAnnotation.id() | dbFieldAnnotation.generatedId()) {
                         hasId = true;
                         break;
                     }
                 }
             }
-            if(hasId) {
+            if (hasId) {
                 break;
             }
         }

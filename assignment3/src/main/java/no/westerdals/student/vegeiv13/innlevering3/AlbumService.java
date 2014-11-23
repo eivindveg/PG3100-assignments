@@ -30,6 +30,7 @@ public class AlbumService {
 
     /**
      * Returns all albums with a given genre. Must be exact match, though ORMLite ignores case by default.
+     *
      * @param genre The genre to search for
      * @return A list of all albums with the given genre
      * @throws SQLException
@@ -42,6 +43,7 @@ public class AlbumService {
 
     /**
      * Returns all genres found in the database.
+     *
      * @return A list of genres
      * @throws SQLException
      */
@@ -54,6 +56,7 @@ public class AlbumService {
 
     /**
      * Saves a given album to the database
+     *
      * @param album The album to save
      * @throws SQLException
      */
@@ -63,6 +66,7 @@ public class AlbumService {
 
     /**
      * Attempts to ensure the table(s) handled by this service exist.
+     *
      * @return Whether or not the table(s) exist.
      * @throws SQLException
      */
@@ -78,6 +82,7 @@ public class AlbumService {
 
     /**
      * Attempts to drop the table(s) handled by this service.
+     *
      * @return Inversely whether the tables exist.
      * @throws SQLException
      */

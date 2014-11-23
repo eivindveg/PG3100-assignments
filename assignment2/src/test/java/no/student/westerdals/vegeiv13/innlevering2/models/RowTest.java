@@ -24,7 +24,7 @@ public class RowTest {
         Object[] data = new Object[row.size()];
         String expected = "INSERT INTO TestTable (id, test) VALUES (?, ?);";
         String actual = row.toInsertStatement("TestTable", data);
-        for(Object o: data) {
+        for (Object o : data) {
             assertNotNull(o);
         }
         assertEquals(expected, actual);

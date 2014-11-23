@@ -21,6 +21,7 @@
         <c:when test="${genres.size() > 0}">
             <div class="medium-4 columns text-center">
                 <h2>Choose genre</h2>
+
                 <form action="${pageContext.request.contextPath}/music" method="POST">
                     <label>
                         Genre:
@@ -37,7 +38,7 @@
         <c:otherwise>
             <div class="medium-4 columns text-center">
                 Could not find any music in database.
-                ${genres.size()}
+                    ${genres.size()}
             </div>
         </c:otherwise>
     </c:choose>

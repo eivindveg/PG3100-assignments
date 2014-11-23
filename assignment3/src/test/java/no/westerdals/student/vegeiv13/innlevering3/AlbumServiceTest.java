@@ -55,7 +55,7 @@ public class AlbumServiceTest {
     public void testGetAlbumsByGenre() throws SQLException {
         int expected = 3;
         int actual;
-        for(int i = 0; i < expected; i++) {
+        for (int i = 0; i < expected; i++) {
             Album a = new Album();
             a.setGenre("TestGenre");
             a.setTitle("Test" + i);

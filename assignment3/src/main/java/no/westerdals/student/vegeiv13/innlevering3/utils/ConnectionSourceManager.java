@@ -26,7 +26,7 @@ public class ConnectionSourceManager {
                 throw new UnsupportedOperationException("Unsupported JDBC Database");
         }
         String url = urlPrefix + "" + configuration.getString("database.url", "localhost");
-        if(dbType.equals("mysql") && !url.endsWith("/")) {
+        if (dbType.equals("mysql") && !url.endsWith("/")) {
             url += "/";
         }
         url += schema;

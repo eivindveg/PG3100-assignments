@@ -11,11 +11,11 @@ public class Row extends TreeMap<Column, Object> {
         final StringBuilder valuesBuilder = new StringBuilder();
 
         int i = 0;
-        for(Column key : keySet()) {
+        for (Column key : keySet()) {
             dataValues[i] = get(key);
             valuesBuilder.append("?");
             namesBuilder.append(key.getName());
-            if(!key.equals(lastColumn)) {
+            if (!key.equals(lastColumn)) {
                 namesBuilder.append(", ");
                 valuesBuilder.append(", ");
             }

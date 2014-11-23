@@ -30,6 +30,7 @@ public class TableTest {
         table.setKnownRows(new ArrayList<>());
         assertEquals(table.getKnownRows().size(), 0);
     }
+
     @Test
     public void testDescribeTable() throws Exception {
         String expected = "Describing table 'TestTable':\n" +

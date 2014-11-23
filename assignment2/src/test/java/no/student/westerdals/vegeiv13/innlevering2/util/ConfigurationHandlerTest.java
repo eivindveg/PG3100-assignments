@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class ConfigurationHandlerTest {
 
@@ -26,7 +26,7 @@ public class ConfigurationHandlerTest {
     @Test
     public void testConfigLoaded() {
         Configuration configuration = configurationHandler.getConfiguration();
-        assertTrue(!configuration.isEmpty());
+        assertFalse(configuration.isEmpty());
     }
 
 }

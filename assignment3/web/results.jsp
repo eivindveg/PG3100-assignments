@@ -21,7 +21,7 @@
         </p>
         <ul>
             <c:forEach items="${albums}" var="album">
-            <li>${album}</li>
+                <li>${album}</li>
             </c:forEach>
         </ul>
     </div>

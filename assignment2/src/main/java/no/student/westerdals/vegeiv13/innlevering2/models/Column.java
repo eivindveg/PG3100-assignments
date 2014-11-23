@@ -3,15 +3,20 @@ package no.student.westerdals.vegeiv13.innlevering2.models;
 public class Column implements Comparable<Column> {
 
     private final String name;
+    private final DataType dataType;
+    private final Integer width;
     private Integer index;
     private boolean primaryKey;
+    public Column(final DataType dataType, final int index, final int width, final String name) {
+        this.index = index;
+        this.dataType = dataType;
+        this.width = width;
+        this.name = name;
+    }
 
     public DataType getDataType() {
         return dataType;
     }
-
-    private final DataType dataType;
-    private final Integer width;
 
     @Override
     public String toString() {
@@ -44,13 +49,6 @@ public class Column implements Comparable<Column> {
         return result;
     }
 
-    public Column(final DataType dataType, final int index, final int width, final String name) {
-        this.index = index;
-        this.dataType = dataType;
-        this.width = width;
-        this.name = name;
-    }
-
     public int getWidth() {
         return width;
     }
@@ -69,7 +67,7 @@ public class Column implements Comparable<Column> {
 
     @Override
     public int compareTo(Column o) {
-        if(o == this || o.equals(this)) {
+        if (o == this || o.equals(this)) {
             return 0;
         }
         return this.index - o.index;
